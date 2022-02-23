@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct Node {
+    int data;
+    struct Node *left;
+    struct Node *right;
+};
+Node* Insert(Node *root,int data) {
+    if(root == NULL) {
+        root = new Node();
+        root->data = data;
+        root->left = root->right = NULL;
+    }
+    else if(data <= root->data)
+        root->left = Insert(root->left,data);
+    else 
+        root->right = Insert(root->right,data);
+    return root;
+} 
+int FindHeight(Node* root)
+{
+    if(root==NULL)
+        return 0;
+    else
+    {
+        int lb=FindHeight(root->left);
+        int rb=FindHeight(root->right);
+        return max(lb,rb)+1;
+    }
+}
+int main() {
+    Node* root = NULL;
+    int i,n;
+    cin>>n;
+    int a[n];
+    for(i=1;i<=n;i++)
+        scanf("%d",&a[i]);
+    for(i=1;i<=n;i++)
+    root = Insert(root,a[i]);
+    cout<<FindHeight(root);
+}
+   
